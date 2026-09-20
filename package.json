@@ -22,7 +22,7 @@
     "vue": "^3.4.0"
   },
   "devDependencies": {
-    "@whilesmart/design": "file:../../whilesmart/design",
+    "@whilesmart/design": "^0.2.0",
     "nuxt": "^3.17.0",
     "vue-tsc": "^3.1.3",
     "vue": "^3.5.0",
@@ -31,15 +31,11 @@
     "vitest": "^4.1.11"
   },
   "scripts": {
-    "check": "node scripts/check-icons.mjs && node scripts/messages.mjs && node scripts/check-templates.mjs && npm test && npm run typecheck && npm run build",
+    "check": "node scripts/check-icons.mjs && node scripts/messages.mjs && node scripts/check-templates.mjs && npm run build && npm test && npm run typecheck",
     "messages": "node scripts/messages.mjs --write",
     "typecheck": "nuxt typecheck",
     "build": "nuxt prepare",
     "test": "vitest run"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com",
-    "access": "public"
   },
   "repository": {
     "type": "git",
