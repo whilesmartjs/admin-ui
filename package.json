@@ -31,7 +31,7 @@
     "vitest": "^4.1.11"
   },
   "scripts": {
-    "check": "node scripts/check-icons.mjs && node scripts/messages.mjs && node scripts/check-templates.mjs && npm test && npm run typecheck && npm run build",
+    "check": "node scripts/check-icons.mjs && node scripts/messages.mjs && node scripts/check-templates.mjs && npm run build && npm test && npm run typecheck",
     "messages": "node scripts/messages.mjs --write",
     "typecheck": "nuxt typecheck",
     "build": "nuxt prepare",
