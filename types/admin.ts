@@ -85,3 +85,31 @@ export interface AdminMetricReport {
   period: { start: string; end: string; granularity: string };
   groups: AdminMetricGroup[];
 }
+
+export interface OfferField {
+  name: string;
+  label: string;
+  /** "user" is an address the console can search the directory for, while still taking one typed in full. */
+  type: "text" | "number" | "date" | "select" | "boolean" | "user";
+  required: boolean;
+  help: string | null;
+  options: Record<string, string>;
+}
+
+export interface Offer {
+  id: string;
+  code: string;
+  value: string;
+  expires_at: string | null;
+  redemptions: number | null;
+  max_redemptions: number | null;
+  active: boolean;
+  meta: Record<string, unknown>;
+}
+
+export interface OfferProvider {
+  key: string;
+  label: string;
+  fields: OfferField[];
+  offers: Offer[];
+}
