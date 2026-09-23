@@ -4,6 +4,8 @@ import type {
   AdminUser,
   AdminUserDetail,
   MailTemplate,
+  Offer,
+  OfferProvider,
   RawUserDetail,
 } from "../types/admin";
 
@@ -130,6 +132,26 @@ export function useAdminConsole() {
     return response.data;
   }
 
+  async function offerProviders(): Promise<OfferProvider[]> {
+    const response = await api<{ data: OfferProvider[] }>(`${prefix}/offers`);
+    return response.data;
+  }
+
+  async function createOffer(
+    provider: string,
+    attributes: Record<string, unknown>,
+  ): Promise<Offer> {
+    const response = await api<{ data: Offer }>(`${prefix}/offers/${provider}`, {
+      method: "POST",
+      body: { attributes },
+    });
+    return response.data;
+  }
+
+  async function revokeOffer(provider: string, id: string): Promise<void> {
+    await api(`${prefix}/offers/${provider}/${id}`, { method: "DELETE" });
+  }
+
   return {
     metrics,
     users,
@@ -139,5 +161,8 @@ export function useAdminConsole() {
     previewTemplate,
     feedback,
     updateFeedbackStatus,
+    offerProviders,
+    createOffer,
+    revokeOffer,
   };
 }
