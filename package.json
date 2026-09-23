@@ -18,7 +18,7 @@
   ],
   "peerDependencies": {
     "@whilesmart/design": "^0.2.0",
-    "nuxt": "^3.12.0",
+    "nuxt": "^3.12.0 || ^4.0.0",
     "vue": "^3.4.0"
   },
   "devDependencies": {
