@@ -21,7 +21,7 @@ export function mergeNavigation(
       label: item.label ?? item.to,
       to: item.to,
       icon: item.icon ?? ("solar:widget-5-bold-duotone" as const),
-      area: item.area ?? fallbackAreas[index % fallbackAreas.length],
+      area: item.area ?? fallbackAreas[index % fallbackAreas.length] ?? "slate",
     }));
 
   return [...defaults, ...extra];
