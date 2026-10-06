@@ -74,6 +74,30 @@ without a translation layer renders it unchanged. A host that does translate mer
 `messages/en.json` into its own locale and sets `adminI18n: true`. Leave it off otherwise, or
 the host logs a missing key for every string.
 
+## Analytics
+
+The admin layout initializes PostHog in the browser when the host supplies both settings:
+
+```ts
+runtimeConfig: {
+  public: {
+    adminPosthog: {
+      token: "your-project-token-here",
+      host: "https://us.i.posthog.com",
+    },
+  },
+},
+```
+
+Use your project's ingestion host. The project token is browser-visible; never use a
+personal API key. Leave either setting empty to disable the integration.
+
+The layout records one page view on entry and on each path change. Query strings and
+fragments are omitted. Cookies and local storage retain the visitor identity across
+visits. Clearing browser storage or using another browser creates another identity.
+Autocapture and session replay are disabled. These events go to PostHog; they do not
+replace the engagement measurements shown in the admin console.
+
 ## Colour
 
 Each destination owns one area colour from the design system. It carries the navigation pill,

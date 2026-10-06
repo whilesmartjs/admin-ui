@@ -40,5 +40,8 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/whilesmartjs/admin-ui.git"
+  },
+  "dependencies": {
+    "posthog-js": "^1.435.8"
   }
 }

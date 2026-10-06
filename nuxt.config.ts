@@ -4,6 +4,10 @@ export default defineNuxtConfig({
     public: {
       adminApiPrefix: "/api/admin",
       adminAppRoute: "/dashboard",
+      adminPosthog: {
+        token: "",
+        host: "",
+      },
       // Off by default: the package's strings are their own English text, so a host
       // without messages/en.json merged into its locale would log a missing key for each.
       adminI18n: false,
