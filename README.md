@@ -74,9 +74,16 @@ without a translation layer renders it unchanged. A host that does translate mer
 `messages/en.json` into its own locale and sets `adminI18n: true`. Leave it off otherwise, or
 the host logs a missing key for every string.
 
-**An analytics dashboard, if it has one.** The analytics page frames whatever publicly shared
-dashboard the backend returns from `analytics`. Set it on the backend, never in this layer's
-public config: anyone holding that address can read the dashboard.
+**A PostHog dashboard, if it has one.** The PostHog page frames the publicly shared dashboard
+the backend returns from `posthog`. Set it on the backend, never in this layer's public
+config: anyone holding that address can read the dashboard.
+
+**The pages it has no backend for.** Every page ships in the navigation. A host that does not
+serve one, such as feedback without its package installed, hides it:
+
+```ts
+adminHiddenPages: ["/admin/feedback"],
+```
 
 ## Colour
 

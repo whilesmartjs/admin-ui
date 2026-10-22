@@ -70,8 +70,8 @@ export function useAdminConsole() {
     return response.data;
   }
 
-  async function analyticsDashboard(): Promise<string | null> {
-    const response = await api<{ data: { dashboard_url: string | null } }>(`${prefix}/analytics`);
+  async function posthogDashboard(): Promise<string | null> {
+    const response = await api<{ data: { dashboard_url: string | null } }>(`${prefix}/posthog`);
     return response.data.dashboard_url;
   }
 
@@ -159,7 +159,7 @@ export function useAdminConsole() {
 
   return {
     metrics,
-    analyticsDashboard,
+    posthogDashboard,
     users,
     user,
     templates,
