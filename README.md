@@ -78,12 +78,9 @@ the host logs a missing key for every string.
 the backend returns from `posthog`. Set it on the backend, never in this layer's public
 config: anyone holding that address can read the dashboard.
 
-**The pages it has no backend for.** Every page ships in the navigation. A host that does not
-serve one, such as feedback without its package installed, hides it:
-
-```ts
-adminHiddenPages: ["/admin/feedback"],
-```
+**Nothing for optional pages.** Feedback and PostHog appear only once the backend's
+`features` endpoint says it serves them, so a host without the feedback package or a shared
+dashboard is never offered a page that cannot load.
 
 ## Colour
 

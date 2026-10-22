@@ -8,6 +8,7 @@ import type {
   OfferProvider,
   RawUserDetail,
 } from "../types/admin";
+import type { AdminFeatures } from "../lib/navigation";
 
 export function useAdminConsole() {
   const api = useApi();
@@ -67,6 +68,11 @@ export function useAdminConsole() {
     const response = await api<{ data: AdminMetricReport }>(
       `${prefix}/metrics${suffix}`,
     );
+    return response.data;
+  }
+
+  async function features(): Promise<Partial<AdminFeatures>> {
+    const response = await api<{ data: Partial<AdminFeatures> }>(`${prefix}/features`);
     return response.data;
   }
 
@@ -159,6 +165,7 @@ export function useAdminConsole() {
 
   return {
     metrics,
+    features,
     posthogDashboard,
     users,
     user,
