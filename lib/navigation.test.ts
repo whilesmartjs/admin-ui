@@ -18,9 +18,18 @@ describe("mergeNavigation", () => {
     expect(items[1].label).toBe("Users");
   });
 
-  it("leaves out a destination the host hides", () => {
-    const items = mergeNavigation(defaults, [{ label: "Outreach", to: "/admin/outreach" }], ["/admin/users", "/admin/outreach"]);
-    expect(items.map((item) => item.to)).toEqual(["/admin"]);
+  it("offers an optional page only when the backend serves it", () => {
+    const optional: AdminNavItem[] = [
+      ...defaults,
+      { label: "Feedback", to: "/admin/feedback", icon: "solar:chat-round-dots-bold-duotone", area: "amber", feature: "feedback" },
+      { label: "PostHog", to: "/admin/posthog", icon: "solar:graph-new-up-bold-duotone", area: "slate", feature: "posthog" },
+    ];
+    const destinations = (features: { feedback: boolean; posthog: boolean }) =>
+      mergeNavigation(optional, [], features).map((item) => item.to);
+
+    expect(destinations({ feedback: false, posthog: false })).toEqual(["/admin", "/admin/users"]);
+    expect(destinations({ feedback: false, posthog: true })).toEqual(["/admin", "/admin/users", "/admin/posthog"]);
+    expect(mergeNavigation(optional, []).map((item) => item.to)).toEqual(["/admin", "/admin/users", "/admin/feedback"]);
   });
 
   it("drops an entry with no destination", () => {

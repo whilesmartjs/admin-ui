@@ -8,7 +8,6 @@ export default defineNuxtConfig({
       // without messages/en.json merged into its locale would log a missing key for each.
       adminI18n: false,
       adminNavigation: [],
-      adminHiddenPages: [],
       adminUserColumns: [],
       adminMetricDrilldowns: {},
       adminBrand: {
