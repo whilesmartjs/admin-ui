@@ -18,6 +18,11 @@ describe("mergeNavigation", () => {
     expect(items[1].label).toBe("Users");
   });
 
+  it("leaves out a destination the host hides", () => {
+    const items = mergeNavigation(defaults, [{ label: "Outreach", to: "/admin/outreach" }], ["/admin/users", "/admin/outreach"]);
+    expect(items.map((item) => item.to)).toEqual(["/admin"]);
+  });
+
   it("drops an entry with no destination", () => {
     expect(mergeNavigation(defaults, [{ label: "Nowhere" }])).toHaveLength(2);
   });

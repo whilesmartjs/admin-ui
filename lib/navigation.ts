@@ -9,10 +9,15 @@ export interface AdminNavItem {
 
 const fallbackAreas: AreaColor[] = ["slate", "violet", "teal"];
 
-/** Host entries are appended, and never replace a destination the package already owns. */
+/**
+ * Host entries are appended, and never replace a destination the package already owns.
+ * A hidden destination is one the host has no backend for, so it is left out wherever it
+ * came from.
+ */
 export function mergeNavigation(
   defaults: AdminNavItem[],
   configured: Partial<AdminNavItem>[],
+  hidden: string[] = [],
 ): AdminNavItem[] {
   const extra = configured
     .filter((item): item is Partial<AdminNavItem> & { to: string } =>
@@ -24,7 +29,7 @@ export function mergeNavigation(
       area: item.area ?? fallbackAreas[index % fallbackAreas.length] ?? "slate",
     }));
 
-  return [...defaults, ...extra];
+  return [...defaults, ...extra].filter((item) => !hidden.includes(item.to));
 }
 
 /** Longest match wins: /admin is a prefix of every other destination. */
