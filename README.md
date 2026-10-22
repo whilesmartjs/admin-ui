@@ -74,6 +74,10 @@ without a translation layer renders it unchanged. A host that does translate mer
 `messages/en.json` into its own locale and sets `adminI18n: true`. Leave it off otherwise, or
 the host logs a missing key for every string.
 
+**An analytics dashboard, if it has one.** The analytics page frames whatever publicly shared
+dashboard the backend returns from `analytics`. Set it on the backend, never in this layer's
+public config: anyone holding that address can read the dashboard.
+
 ## Colour
 
 Each destination owns one area colour from the design system. It carries the navigation pill,

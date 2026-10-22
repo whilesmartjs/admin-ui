@@ -70,6 +70,11 @@ export function useAdminConsole() {
     return response.data;
   }
 
+  async function analyticsDashboard(): Promise<string | null> {
+    const response = await api<{ data: { dashboard_url: string | null } }>(`${prefix}/analytics`);
+    return response.data.dashboard_url;
+  }
+
   async function templates(): Promise<MailTemplate[]> {
     const response = await api<{ data: MailTemplate[] }>(
       `${prefix}/mail-templates`,
@@ -154,6 +159,7 @@ export function useAdminConsole() {
 
   return {
     metrics,
+    analyticsDashboard,
     users,
     user,
     templates,

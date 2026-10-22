@@ -9,6 +9,7 @@ export type { AdminNavItem };
 const defaults: AdminNavItem[] = [
   { label: "Overview", to: "/admin", icon: "solar:widget-5-bold-duotone", area: "indigo" },
   { label: "Measurements", to: "/admin/metrics", icon: "solar:chart-square-bold-duotone", area: "cyan" },
+  { label: "Analytics", to: "/admin/analytics", icon: "solar:graph-new-up-bold-duotone", area: "slate" },
   { label: "Demographics", to: "/admin/demographics", icon: "solar:global-bold-duotone", area: "teal" },
   { label: "Users", to: "/admin/users", icon: "solar:users-group-rounded-bold-duotone", area: "green" },
   { label: "Email templates", to: "/admin/email-templates", icon: "solar:letter-bold-duotone", area: "violet" },
