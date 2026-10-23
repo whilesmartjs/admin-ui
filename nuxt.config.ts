@@ -9,6 +9,8 @@ export default defineNuxtConfig({
         endpoint: "",
         siteKey: "",
         userState: "",
+        // Off until set: a host API path that links this browser's visitor id to the signed-in account.
+        identifyPath: "",
       },
       posthog: {
         key: "",

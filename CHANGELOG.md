@@ -2,6 +2,11 @@
 
 All notable changes to the WhileSmart administration console are documented in this file.
 
+## [0.3.0] - 2026-10-23
+
+- `useEngagement()` lets the host app record its own events through the layer's client, and does nothing while tracking is off.
+- Setting `engagement.identifyPath` links the browser visitor to the signed-in account, so earlier visits and their source count as that person's. It needs `@whilesmart/engagement` 0.3.0.
+
 ## [0.2.0] - 2026-10-23
 
 - Page views and link clicks on every page of the host app, sent to the engagement endpoint, PostHog, or both, with optional masked session replay.
