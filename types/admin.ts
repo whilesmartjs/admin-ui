@@ -107,9 +107,13 @@ export interface Offer {
   meta: Record<string, unknown>;
 }
 
+export type OfferColumn = "code" | "value" | "lasts" | "used" | "until";
+
 export interface OfferProvider {
   key: string;
   label: string;
   fields: OfferField[];
   offers: Offer[];
+  /** Headings the provider gives its columns. A column it leaves out is hidden. */
+  columns?: Partial<Record<OfferColumn, string>> | null;
 }

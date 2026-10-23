@@ -161,7 +161,7 @@ import {
   DsSwitch,
   DsTabs,
 } from "@whilesmart/design";
-import { blankDraft, filledAttributes, offerRow, readyToCreate, userSuggestions } from "../../lib/offers";
+import { blankDraft, filledAttributes, offerColumns, offerRow, readyToCreate, userSuggestions } from "../../lib/offers";
 import type { Offer, OfferField, OfferProvider } from "../../types/admin";
 
 definePageMeta({ layout: "admin", middleware: ["auth", "admin"] as never[] });
@@ -192,11 +192,13 @@ const live = computed(() => provider.value?.offers.filter((offer) => offer.activ
 const ready = computed(() => readyToCreate(provider.value?.fields ?? [], draft.value));
 
 const columns = computed(() => [
-  { key: "code", label: t("Code") },
-  { key: "value", label: t("Takes off") },
-  { key: "lasts", label: t("Lasts") },
-  { key: "used", label: t("Used") },
-  { key: "until", label: t("Until") },
+  ...offerColumns(provider.value?.columns, {
+    code: t("Code"),
+    value: t("Takes off"),
+    lasts: t("Lasts"),
+    used: t("Used"),
+    until: t("Until"),
+  }),
   { key: "actions", label: "", align: "right" as const, width: "8rem" },
 ]);
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { blankDraft, filledAttributes, offerRow, readyToCreate, userSuggestions } from "./offers";
+import { blankDraft, filledAttributes, offerColumns, offerRow, readyToCreate, userSuggestions } from "./offers";
 import type { Offer, OfferField } from "../types/admin";
 
 const field = (over: Partial<OfferField> = {}): OfferField => ({
@@ -85,5 +85,21 @@ describe("offerRow", () => {
 
   it("says so when a code never stops", () => {
     expect(offerRow(offer(), labels).until).toBe("No end");
+  });
+});
+
+describe("offerColumns", () => {
+  const headings = { code: "Code", value: "Takes off", lasts: "Lasts", used: "Used", until: "Until" };
+
+  it("heads a provider that names nothing as discount codes", () => {
+    expect(offerColumns(null, headings).map((column) => column.label)).toEqual(["Code", "Takes off", "Lasts", "Used", "Until"]);
+  });
+
+  it("uses the provider's headings and hides the columns it leaves out", () => {
+    expect(offerColumns({ code: "Person", value: "Plan", until: "Until" }, headings)).toEqual([
+      { key: "code", label: "Person" },
+      { key: "value", label: "Plan" },
+      { key: "until", label: "Until" },
+    ]);
   });
 });

@@ -1,4 +1,4 @@
-import type { AdminUser, Offer, OfferField } from "../types/admin";
+import type { AdminUser, Offer, OfferColumn, OfferField } from "../types/admin";
 
 /**
  * A control for every field the host declared, empty rather than absent.
@@ -73,4 +73,19 @@ export function offerRow(offer: Offer, labels: { never: string; forever: string 
     used,
     until: offer.expires_at ? new Date(offer.expires_at).toLocaleDateString() : labels.never,
   };
+}
+
+const offerColumnKeys: OfferColumn[] = ["code", "value", "lasts", "used", "until"];
+
+/**
+ * The table's columns: the provider's own headings when it names them, and the
+ * discount headings otherwise.
+ */
+export function offerColumns(
+  named: Partial<Record<OfferColumn, string>> | null | undefined,
+  headings: Record<OfferColumn, string>,
+) {
+  return offerColumnKeys
+    .filter((key) => !named || key in named)
+    .map((key) => ({ key, label: named?.[key] ?? headings[key] }));
 }
