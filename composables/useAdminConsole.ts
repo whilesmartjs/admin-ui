@@ -8,6 +8,7 @@ import type {
   OfferProvider,
   RawUserDetail,
 } from "../types/admin";
+import type { AdminFeatures } from "../lib/navigation";
 
 export function useAdminConsole() {
   const api = useApi();
@@ -68,6 +69,16 @@ export function useAdminConsole() {
       `${prefix}/metrics${suffix}`,
     );
     return response.data;
+  }
+
+  async function features(): Promise<Partial<AdminFeatures>> {
+    const response = await api<{ data: Partial<AdminFeatures> }>(`${prefix}/features`);
+    return response.data;
+  }
+
+  async function posthogDashboard(): Promise<string | null> {
+    const response = await api<{ data: { dashboard_url: string | null } }>(`${prefix}/posthog`);
+    return response.data.dashboard_url;
   }
 
   async function templates(): Promise<MailTemplate[]> {
@@ -154,6 +165,8 @@ export function useAdminConsole() {
 
   return {
     metrics,
+    features,
+    posthogDashboard,
     users,
     user,
     templates,
