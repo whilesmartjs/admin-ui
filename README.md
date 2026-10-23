@@ -74,6 +74,41 @@ without a translation layer renders it unchanged. A host that does translate mer
 `messages/en.json` into its own locale and sets `adminI18n: true`. Leave it off otherwise, or
 the host logs a missing key for every string.
 
+**A PostHog dashboard, if it has one.** The PostHog page frames the publicly shared dashboard
+the backend returns from `posthog`. Set it on the backend, never in this layer's public
+config: anyone holding that address can read the dashboard.
+
+**Nothing for optional pages.** Feedback and PostHog appear only once the backend's
+`features` endpoint says it serves them, so a host without the feedback package or a shared
+dashboard is never offered a page that cannot load.
+
+## Analytics
+
+The layer records page views and link clicks on every page of the host app, and sends
+them to the engagement endpoint, PostHog, or both. Each is off until the host sets it:
+
+```ts
+runtimeConfig: {
+  public: {
+    engagement: {
+      endpoint: "https://api.example.com/api/engagement/events",
+      siteKey: "your-site-key-here",
+      userState: "user",
+    },
+    posthog: {
+      key: "your-project-token-here",
+      host: "https://us.i.posthog.com",
+      replay: true,
+    },
+  },
+},
+```
+
+`userState` names the host's `useState` key holding the signed-in user. A user there is
+identified by id, with their email, username and name; signing out resets the visitor.
+Link clicks carry no link text, and replays mask every text, attribute and input. The
+PostHog token is browser-visible; never use a personal API key.
+
 ## Colour
 
 Each destination owns one area colour from the design system. It carries the navigation pill,
