@@ -109,6 +109,35 @@ identified by id, with their email, username and name; signing out resets the vi
 Link clicks carry no link text, and replays mask every text, attribute and input. The
 PostHog token is browser-visible; never use a personal API key.
 
+**Linking visits to accounts.** Set `identifyPath` to an authenticated path on the host API
+and, once a user is signed in, the layer posts this browser's visitor id there through the
+host's `useApi`, once per person per page load. The backend then attributes that visitor's
+events to the account, so sign-ups can be counted by the source that brought them:
+
+```ts
+engagement: {
+  endpoint: "https://api.example.com/api/engagement/events",
+  siteKey: "your-site-key-here",
+  userState: "user",
+  identifyPath: "/api/engagement/identify",
+},
+```
+
+This needs `@whilesmart/engagement` 0.3.0 or later, which exposes the visitor id. A failed
+call is ignored, so tracking never breaks a page.
+
+**Recording the host's own events.** `useEngagement()` hands the host the same client, so
+its events land beside the page views. Every call does nothing while tracking is off:
+
+```ts
+const engagement = useEngagement();
+engagement.track("checkout.started", { plan: "pro" });
+```
+
+It also offers `page(properties?)` and `visitorId()`, which answers null when there is no
+client or it is older than 0.3.0. The client is available as `useNuxtApp().$engagement`
+too, and is null while tracking is off.
+
 ## Colour
 
 Each destination owns one area colour from the design system. It carries the navigation pill,

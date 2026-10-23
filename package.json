@@ -43,7 +43,7 @@
     "url": "git+https://github.com/whilesmartjs/admin-ui.git"
   },
   "dependencies": {
-    "@whilesmart/engagement": "^0.2.0",
+    "@whilesmart/engagement": "^0.2.0 || ^0.3.0",
     "posthog-js": "^1.438.19"
   }
 }

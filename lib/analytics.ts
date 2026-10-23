@@ -38,3 +38,23 @@ export function analyticsPerson(user: AnalyticsUser): EngagementPerson {
 
   return { id: String(user.id), properties };
 }
+
+export interface VisitorLink {
+  identifyPath: string;
+  recorded: boolean;
+  personId: string;
+  linkedId: string | null;
+}
+
+/** The visitor is linked to an account once per person, and only when the host's own events are recorded. */
+export function shouldLinkVisitor(link: VisitorLink): boolean {
+  return Boolean(link.identifyPath) && link.recorded && link.personId !== link.linkedId;
+}
+
+/** Clients before 0.3.0 do not expose their visitor id. */
+export function visitorIdOf(client: object | null | undefined): string | null {
+  const read = (client as { visitorId?: unknown } | null | undefined)?.visitorId;
+  if (typeof read !== "function") return null;
+  const id = read.call(client);
+  return typeof id === "string" && id !== "" ? id : null;
+}
